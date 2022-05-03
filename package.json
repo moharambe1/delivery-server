@@ -24,20 +24,22 @@
   "scripts": {
     "start": "node build/src/main.js",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "npm run lint",
     "build": "tsc -p tsconfig.json",
-    "build:watch": "tsc -w -p tsconfig.json",
-    "build:release": "npm run clean && tsc -p tsconfig.release.json",
-    "lint": "eslint . --ext .ts",
     "test": "jest --coverage",
-    "test:watch": "jest --watch"
+    "lint": "eslint . --ext .ts",
+    "test:watch": "jest --watch",
+    "format": "prettier --write \"src/**/*.{ts,js}\"",
+    "prepublishOnly": "npm test && npm run lint",
+    "prebuild": "npm run lint",
+    "build:watch": "tsc -w -p tsconfig.json",
+    "build:release": "npm run clean && tsc -p tsconfig.release.json"
   },
-  "author": "ahmed dhia eddine mohammedi",
+  "author": "Ahmed dhia eddine Mohammedi <github.com/moharambe1/>",
   "license": "Apache-2.0",
   "dependencies": {
     "tslib": "~2.3.1"
   },
   "volta": {
-    "node": "16.13.0"
+    "node": "16.15.0"
   }
 }
