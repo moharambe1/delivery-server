@@ -18,5 +18,6 @@
     "plugin:jest/recommended",
     "prettier"
   ],
-  "rules": {}
+  "rules": {},
+  "ignorePatterns": ["migrations/**/*"]
 }

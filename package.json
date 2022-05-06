@@ -2,12 +2,12 @@
   "name": "delivery-server",
   "version": "0.0.0",
   "description": "",
-  "type": "commonjs",
+  "type": "module",
   "engines": {
     "node": ">= 16.13 <17"
   },
   "devDependencies": {
-    "@types/jest": "~27.4",
+    "@types/jest": "~27.5.0",
     "@types/node": "~16.11",
     "@types/pg": "^8.6.5",
     "@typescript-eslint/eslint-plugin": "~5.14",
@@ -15,11 +15,11 @@
     "eslint": "~8.11",
     "eslint-config-prettier": "~8.5",
     "eslint-plugin-jest": "~26.1",
-    "jest": "~27.5",
+    "jest": "~28.0.3",
     "nodemon": "^2.0.16",
     "prettier": "~2.5",
     "rimraf": "~3.0",
-    "ts-jest": "~27.1",
+    "ts-jest": "~28.0.1",
     "tsutils": "~3.21",
     "typescript": "~4.6"
   },
@@ -44,7 +44,6 @@
     "tslib": "~2.3.1"
   },
   "volta": {
-    "node": "16.15.0",
-    "type": "module"
+    "node": "16.15.0"
   }
 }
