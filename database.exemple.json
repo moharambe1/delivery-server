@@ -1,0 +1,12 @@
+{
+  "defaultEnv": "db",
+  "sql-file": true,
+  "db": {
+    "driver": "pg",
+    "database": "POSTGRES DATABASE NAME",
+    "user": "POSTGRES DATABASE USER NAME",
+    "password": "POSTGRES DATABASE PASSWORD",
+    "host": "POSTGRES DATABASE HOST",
+    "port": "POSTGRES DATABASE PORT"
+  }
+}

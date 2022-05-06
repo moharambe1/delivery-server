@@ -1,0 +1,116 @@
+Projects:
+  ☐ Create README.md for project
+
+Todo: 
+  Done:
+    
+    
+  Clien role:
+    ☐ Create account with email
+    ☐ login with email
+  
+    ☐ Adding delevering package
+      ☐ success
+      ☐ error with Massage
+        ☐ Package data not valid.
+        ☐ Server error.
+    ☐ cancel delevering package
+
+    ☐ Send Package with id that hi sended.
+    ☐ Send All package that hi sended with data
+      ☐ With manth
+      ☐ With Day
+
+    ☐ edite delevering package with id that hi sended
+      ☐ success
+      ☐ error with Massage
+        ☐ Package is delevered
+        ☐ cant fand Package.
+        ☐ Server error.
+
+    ☐ send the state of package that hi sended
+    
+  
+  Deliver role:
+    ☐ login with acount from manager
+    ☐ edite the state of package that hi taked
+      ☐ is delevring
+      ☐ is delevered
+      ☐ is return
+      ☐ is received
+      ☐ is receiving
+    
+    ☐ send all packages that hi have 
+    ☐ send all packages that should take
+    ☐ send package Money state:
+      ☐ is payed 
+      ☐ is mony recived
+      
+
+    ☐ edite mony state of package from not payed to payed to del 
+    
+  Manager role:
+    ☐ login with souper acount
+    
+    //deliver role 
+    ☐ add deliver account
+    ☐ remove deliver account
+    
+    ☐ assigne package to deliver
+    ☐ remove package from delever 
+
+    ☐ send all package with id 
+    ☐ send all package with 
+      ☐ manth 
+      ☐ day 
+      ☐ deliver
+    ☐ remove client 
+    ☐ add clinet 
+    
+    ☐ edite package with id 
+    ☐ delete package with id
+    
+    ☐ send package Money state:
+      ☐ is payed 
+      ☐ is mony resived
+      ☐ is mony payed to delivery
+
+account data:
+  ☐ id
+  ☐ name 
+  ☐ number phone
+  ☐ password
+  ☐ addrass
+  ☐ rele
+
+package data:
+  ☐ id of client
+  ☐ id of delivery
+  ☐ id of creater
+
+  ☐ phone number
+  ☐ addrass
+  ☐ money
+  ☐ money of delevring
+
+
+  ☐ state of package
+  ☐ state of mony
+  ☐ state of mony of delevring 
+
+state of package:
+  ☐ is delevring
+  ☐ is delevered
+  ☐ is return
+  ☐ is received
+  ☐ is receiving
+
+state of mony of package:
+  ☐ client
+  ☐ reciver
+  ☐ deliver
+  ☐ manager
+
+  state of mony of package:
+    ☐ client
+    ☐ reciver
