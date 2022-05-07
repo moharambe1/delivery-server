@@ -5,9 +5,9 @@ CREATE TABLE ACCOUNTS(
   id SERIAL PRIMARY KEY, 
   phoneNumer VARCHAR(12) NOT NULL,
 
-  email VARCHAR(40) NOT NULL,
+  email VARCHAR(40) UNIQUE NOT NULL,
   pwd VARCHAR(40) NOT NULL,
-  
+
   accountLevel int DEFAULT 0 NOT NULL,
   accountRole RoleEnum DEFAULT 'CLIENT' NOT NULL,
 
