@@ -1,22 +1,43 @@
 import 'dotenv/config';
-import fastify, { FastifyRequest } from 'fastify';
-import { db_Manager } from './db/db_manager';
-import { Account } from './moduls/accounts';
-import { handleCreateDeliver, preHandleCreateDeliver } from './routers/create_deliver';
+//import fastifySession from '@fastify/session';
+import fastify from 'fastify';
+import session from './plagin/session';
+
+import { handleCreateDeliver, preHandleCreateDeliver } from './routers/deliver/create_deliver';
+import { handleCreateClient, preHandleCreateClient } from './routers/client/create_client';
+import { handleLoginClient, preHandleLoginClient } from './routers/client/login_client';
+import { handleLoginDeliver, preHandleLoginDeliver } from './routers/deliver/login_deliver';
+import { handleCreatePackage, preHandleCreatePackage } from './routers/packages/craete_packages';
+import { handleGetPackage } from './routers/packages/get_packages';
 
 const server = fastify();
+
+server.register(session);
 
 server.get('/ping', async () => {
   return 'pong\n';
 });
 
-server.post('/signup', async (req: FastifyRequest<{ Body: { account: Account } }>, res) => {
-  if (req.body.account != undefined) db_Manager.createAccount(req.body.account);
-  res.send({ message: 'hello world' });
-});
+//Api
 
+//deliver
 server.post('/deliver/api/signup', preHandleCreateDeliver, handleCreateDeliver);
+server.post('/deliver/api/signin', preHandleLoginDeliver, handleLoginDeliver);
 
+//client
+server.post('/client/api/signup', preHandleCreateClient, handleCreateClient);
+server.post('/client/api/signin', preHandleLoginClient, handleLoginClient);
+
+//only authenticated routes
+//server.addHook('onRequest', isAuthenticated);
+
+//package
+server.post('/api/package/create', preHandleCreatePackage, handleCreatePackage);
+server.get('/api/package/get', handleGetPackage);
+
+//server.post('/api/package/update',p)
+
+//server
 server.listen(8080, (err, address) => {
   if (err) {
     console.error(err);

@@ -1,4 +1,5 @@
 import { Account } from '../moduls/accounts';
+import { Packages } from '../moduls/packages';
 import { DB_Postgres } from './db_postgres';
 
 class DB_Manager {
@@ -10,6 +11,18 @@ class DB_Manager {
 
   createAccount(account: Account) {
     return this.db_pg.createAccount(account);
+  }
+
+  loginAccount(account: Account) {
+    return this.db_pg.loginAccount(account);
+  }
+
+  createPackage(pack: Packages) {
+    return this.db_pg.createPackage(pack);
+  }
+
+  getClientPackages(accountId: number) {
+    return this.db_pg.getClientPackages(accountId);
   }
 }
 

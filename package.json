@@ -6,7 +6,10 @@
   "engines": {
     "node": ">= 16.13 <17"
   },
+  "main": "src/main.ts",
+  "types": "src/types.d.ts",
   "devDependencies": {
+    "@types/connect-redis": "^0.0.18",
     "@types/jest": "~27.5.0",
     "@types/node": "~16.11",
     "@types/pg": "^8.6.5",
@@ -34,16 +37,19 @@
     "prepublishOnly": "npm test && npm run lint",
     "prebuild": "npm run lint",
     "build:watch": "tsc -w -p tsconfig.json",
-    "build:release": "npm run clean && tsc -p tsconfig.release.json"
+    "build:release": "npm run clean && tsc -p tsconfig.release.json",
+    "migrate": "node-pg-migrate"
   },
   "author": "Ahmed dhia eddine Mohammedi <github.com/moharambe1/>",
   "license": "Apache-2.0",
   "dependencies": {
     "@fastify/cookie": "^6.0.0",
     "@fastify/session": "^8.2.0",
+    "connect-redis": "^6.1.3",
     "dotenv": "^16.0.0",
     "fastify": "^3.29.0",
     "pg": "^8.7.3",
+    "redis": "^4.1.0",
     "tslib": "~2.3.1"
   },
   "volta": {

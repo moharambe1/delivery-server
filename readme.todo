@@ -110,7 +110,9 @@ state of mony of package:
   ☐ reciver
   ☐ deliver
   ☐ manager
+  ☐ payeded to client
 
-  state of mony of package:
-    ☐ client
-    ☐ reciver
+state of mony of delevring package:
+  ☐ client
+  ☐ reciver
+  ☐ payeded

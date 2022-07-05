@@ -1,10 +1,4 @@
-export enum WilayaEnum {
-  'BISKRA'
-}
-
-export enum CityEnum {
-  'BISKRA'
-}
+import { CityEnum, WilayaEnum } from './shared';
 
 export enum RoleEnum {
   MANAGER = 'MANAGER',
@@ -56,6 +50,13 @@ export class Account {
     if (!account.email) throw new ErrorInCreatingAccount('email argument is missing');
     if (!account.pwd) throw new ErrorInCreatingAccount('pwd argument is missing');
     if (!account.phoneNumber) throw new ErrorInCreatingAccount('phoneNumber argument is missing');
+    if (!account.accountRole) throw new ErrorInCreatingAccount('accountRole argument is missing');
+
+    return true;
+  }
+  static velid_login_account_argument(account: ReqAccountArguments): boolean {
+    if (!account.email) throw new ErrorInCreatingAccount('email argument is missing');
+    if (!account.pwd) throw new ErrorInCreatingAccount('pwd argument is missing');
     if (!account.accountRole) throw new ErrorInCreatingAccount('accountRole argument is missing');
 
     return true;

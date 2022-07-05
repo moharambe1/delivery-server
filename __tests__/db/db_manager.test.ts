@@ -3,11 +3,7 @@ import { DB_Postgres } from '../../src/db/db_postgres';
 import { Account, ReqAccountArguments, RoleEnum } from '../../src/moduls/accounts';
 
 let account: Account;
-jest.mock('../../src/db/db_postgres', () => {
-  return {
-    SoundPlayer: jest.fn().mockImplementation()
-  };
-});
+
 beforeEach(() => {
   const accountArg: ReqAccountArguments = {
     email: 'abc@gmail.com',
@@ -20,6 +16,8 @@ beforeEach(() => {
 
 describe('test for postgres logic', () => {
   const db_postgres = new DB_Postgres('');
+
+  db_Manager.db_pg = db_postgres;
   const mockCreateAccount = jest.fn();
   db_postgres.createAccount = mockCreateAccount;
 

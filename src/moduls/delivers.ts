@@ -9,4 +9,13 @@ export class Delivers extends Account {
 
     return true;
   }
+
+  static velid_login_deliver_argument(account: ReqAccountArguments): boolean {
+    this.velid_login_account_argument(account);
+
+    if (account.accountRole !== RoleEnum.DELIVER)
+      throw new ErrorInCreatingAccount('accountRole must equel ' + RoleEnum.DELIVER);
+
+    return true;
+  }
 }
