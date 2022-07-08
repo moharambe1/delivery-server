@@ -9,6 +9,10 @@ import { handleLoginClient, preHandleLoginClient } from './routers/client/login_
 import { handleLoginDeliver, preHandleLoginDeliver } from './routers/deliver/login_deliver';
 import { handleCreatePackage, preHandleCreatePackage } from './routers/packages/craete_packages';
 import { handleGetPackage } from './routers/packages/get_packages';
+import { handleCreateManager, preHandleCreateManager } from './routers/manager/create_deliver';
+import { handleLoginManager, preHandleLoginManager } from './routers/manager/login_deliver';
+import { isAuthenticated } from './routers/utls/authenticate';
+import { handleAddPackageManager, preHandleAddPackageManager } from './routers/manager/add_package';
 
 const server = fastify();
 
@@ -28,6 +32,16 @@ server.post('/deliver/api/signin', preHandleLoginDeliver, handleLoginDeliver);
 server.post('/client/api/signup', preHandleCreateClient, handleCreateClient);
 server.post('/client/api/signin', preHandleLoginClient, handleLoginClient);
 
+//Manager
+server.post('/manager/api/signup', preHandleCreateManager, handleCreateManager);
+server.post('/manager/api/signin', preHandleLoginManager, handleLoginManager);
+server.post('/manager/api/addPackage', preHandleAddPackageManager, handleAddPackageManager);
+
+server.get('/api/isLogin', (req, res) => {
+  isAuthenticated(req, res, () => {
+    res.status(200).send({ message: 'you are login' });
+  });
+});
 //only authenticated routes
 //server.addHook('onRequest', isAuthenticated);
 

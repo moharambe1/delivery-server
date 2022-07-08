@@ -90,7 +90,7 @@ export class Packages {
     if (!(reqPackage.moneyDelivring > 0)) throw new ErrorPackage('moneyDelivring argument is missing');
 
     if (!reqPackage.city) throw new ErrorPackage('city argument is missing');
-    if (!reqPackage.address) throw new ErrorPackage('addresss argument is missing');
+    if (!reqPackage.address) reqPackage.address = '';
 
     if (!(reqPackage.statePackage in StatePackageEnum))
       throw new ErrorPackage('statePackage argument is mast be one of ' + StatePackageEnum);
