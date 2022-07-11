@@ -13,6 +13,11 @@ import { handleCreateManager, preHandleCreateManager } from './routers/manager/c
 import { handleLoginManager, preHandleLoginManager } from './routers/manager/login_deliver';
 import { isAuthenticated } from './routers/utls/authenticate';
 import { handleAddPackageManager, preHandleAddPackageManager } from './routers/manager/add_package';
+import {
+  handleGetPackagesWithStateManager,
+  preHandleGetPackagesWithStateManager
+} from './routers/manager/get_packages';
+import { handleChangePackageState, preHandleChangePackageState } from './routers/packages/change_package_state';
 
 const server = fastify();
 
@@ -37,22 +42,30 @@ server.post('/manager/api/signup', preHandleCreateManager, handleCreateManager);
 server.post('/manager/api/signin', preHandleLoginManager, handleLoginManager);
 server.post('/manager/api/addPackage', preHandleAddPackageManager, handleAddPackageManager);
 
+server.post(
+  '/manager/api/getPakagesWithState',
+  preHandleGetPackagesWithStateManager,
+  handleGetPackagesWithStateManager
+);
+
 server.get('/api/isLogin', (req, res) => {
   isAuthenticated(req, res, () => {
     res.status(200).send({ message: 'you are login' });
   });
 });
+
 //only authenticated routes
 //server.addHook('onRequest', isAuthenticated);
 
 //package
 server.post('/api/package/create', preHandleCreatePackage, handleCreatePackage);
 server.get('/api/package/get', handleGetPackage);
+server.post('/api/package/changeState', preHandleChangePackageState, handleChangePackageState);
 
 //server.post('/api/package/update',p)
 
 //server
-server.listen(8080, (err, address) => {
+server.listen(8000, '0.0.0.0', (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);

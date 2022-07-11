@@ -1,5 +1,6 @@
 /* Replace with your SQL commands */
-CREATE TYPE StatePackageEnum AS ENUM('RECEIVING','RECEIVED','DELIVERING','DELEVERED','RETURN');
+CREATE TYPE StatePackageEnum AS ENUM('RECEIVING','RECEIVED','STORED','DELIVERING','DELEVERED','RETURNING',
+  'RETURNED', 'DONE');
 CREATE TYPE StateMoneyEnum AS ENUM('MANAGER','DELIVER','RECIVER','CLIENT','PAYED');
 CREATE TYPE StateMoneyDeliveringEnum AS ENUM('CLIENT','RECIVER','PAYED');
 
@@ -9,7 +10,8 @@ CREATE TABLE PACKAGES(
   idCreater INT,
   idClient INT,
   idDelivery INT,
-
+  idAnoun INT,
+  
   PackageMoney INT,
   delivringMoney INT,
 
@@ -17,7 +19,7 @@ CREATE TABLE PACKAGES(
   stateMoney StateMoneyEnum NOT NULL,
   StateMoneyDelivering StateMoneyDeliveringEnum NOT NULL,
 
-  phoneNumer VARCHAR(12),
+  phoneNumber VARCHAR(12),
   fullName VARCHAR(40),
   wilaya WilayaEnumShared DEFAULT 'BISKRA' NOT NULL,
   city CityEnumShared DEFAULT 'BISKRA' NOT NULL,

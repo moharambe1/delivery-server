@@ -7,7 +7,10 @@ export enum StatePackageEnum {
   RECEIVED = 'RECEIVED',
   DELIVERING = 'DELIVERING',
   DELEVERED = 'DELEVERED',
-  RETURN = 'RETURN'
+  RETURN = 'RETURN',
+  STORED = 'STORED',
+  DONE = 'DONE',
+  ALL = 'ALL'
 }
 export enum StatsMoneyEnum {
   MANAGER = 'MANAGER',
@@ -20,6 +23,11 @@ export enum StatsMoneyDeliveringEnum {
   CLIENT = 'CLIENT',
   RECIVER = 'RECIVER',
   PAYED = 'PAYED'
+}
+
+export interface ReqChangeStateArg {
+  id?: number;
+  newState: StatePackageEnum;
 }
 
 export interface ReqCreatePackagesArg {
@@ -108,6 +116,11 @@ export class Packages {
   }
   valid_update_package_argiments(reqPackage: ReqCreatePackagesArg) {
     if (!reqPackage.id) throw new ErrorPackage('id argument is missing');
+  }
+  static valid_Change_Package_State(req: ReqChangeStateArg) {
+    if (!req.id) throw new ErrorPackage('id argument is missing');
+    if (!req.newState || !(req.newState in StatePackageEnum)) throw new ErrorPackage('newState argument not valid');
+    return true;
   }
   toArray() {
     const list = [];

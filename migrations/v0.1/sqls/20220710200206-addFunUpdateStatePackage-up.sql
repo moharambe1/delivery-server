@@ -1,0 +1,38 @@
+/* Replace with your SQL commands */
+
+CREATE OR REPLACE FUNCTION update_state_package(p_id int,p_state_pack StatePackageEnum,p_role RoleEnum)
+returns int
+LANGUAGE plpgsql
+as 
+$$
+DECLARE 
+  t_state_pack statepackageenum;
+  t_state_deli_mny statemoneydeliveringenum;
+
+
+BEGIN
+SELECT statePackage,StateMoneyDelivering INTO t_state_pack,t_state_deli_mny FROM PACKAGES WHERE id=p_id;
+IF p_role='MANAGER'::RoleEnum then 
+  IF p_state_pack='STORED' AND t_state_pack ='RECEIVING'::StatePackageEnum   then
+  
+    IF t_state_deli_mny='CLIENT'::StateMoneyDeliveringEnum then 
+      UPDATE PACKAGES SET statemoneydelivering='PAYED'::StateMoneyDeliveringEnum, statePackage = p_state_pack WHERE id=p_id;
+	  RETURN 1;
+    ELSEIF t_state_deli_mny='RECIVER'::StateMoneyDeliveringEnum THEN 
+      UPDATE PACKAGES SET  statePackage= p_state_pack WHERE id=p_id;
+	  RETURN 1;
+    END IF;
+	
+  END IF;
+  
+  IF p_state_pack='DELEVERED' AND t_state_pack= 'STORED'::StatePackageEnum then
+  	UPDATE PACKAGES SET stateMoney = 'MANAGER'::stateMoneyEnum, statemoneydelivering='PAYED'::StateMoneyDeliveringEnum, statePackage = p_state_pack WHERE id=p_id;
+  ELSEIF  p_state_pack='RETURNED' AND t_state_pack= 'STORED'::StatePackageEnum then
+  	UPDATE PACKAGES SET  statePackage = p_state_pack WHERE id= p_id;
+  END IF;
+  
+  
+END IF;
+RETURN 0;
+end;
+$$ 
