@@ -18,6 +18,14 @@ import {
   preHandleGetPackagesWithStateManager
 } from './routers/manager/get_packages';
 import { handleChangePackageState, preHandleChangePackageState } from './routers/packages/change_package_state';
+import { handleGetPackagesWithIdManager, preHandleGetPackagesWithIdManager } from './routers/manager/get_package_id';
+import {
+  handleGetUserPackagesWithStateManager,
+  preHandleGetUserPackagesWithStateManager
+} from './routers/manager/get_user_packages_with_state';
+import { handleSetPackagesStateByIds, preHandleSetPackagesStateByIds } from './routers/packages/set_package_state_ids';
+import { handleGetUserIdManager, preHandleGetUserIdManager } from './routers/manager/get_user_id';
+import { HandleGetUserPhoneManager, preHandleGetUserPhoneManager } from './routers/manager/get_anoin_client_data';
 
 const server = fastify();
 
@@ -41,6 +49,9 @@ server.post('/client/api/signin', preHandleLoginClient, handleLoginClient);
 server.post('/manager/api/signup', preHandleCreateManager, handleCreateManager);
 server.post('/manager/api/signin', preHandleLoginManager, handleLoginManager);
 server.post('/manager/api/addPackage', preHandleAddPackageManager, handleAddPackageManager);
+server.post('/manager/api/getUserId', preHandleGetUserIdManager, handleGetUserIdManager);
+server.post('/manager/api/getPackageWithId', preHandleGetPackagesWithIdManager, handleGetPackagesWithIdManager);
+server.post('/manager/api/getClientPhone', preHandleGetUserPhoneManager, HandleGetUserPhoneManager);
 
 server.post(
   '/manager/api/getPakagesWithState',
@@ -48,6 +59,12 @@ server.post(
   handleGetPackagesWithStateManager
 );
 
+server.post(
+  '/manager/api/getUserPackagesWithState',
+  preHandleGetUserPackagesWithStateManager,
+  handleGetUserPackagesWithStateManager
+);
+server.post('/manager/api/setPackageStateByIds', preHandleSetPackagesStateByIds, handleSetPackagesStateByIds);
 server.get('/api/isLogin', (req, res) => {
   isAuthenticated(req, res, () => {
     res.status(200).send({ message: 'you are login' });
@@ -62,6 +79,7 @@ server.post('/api/package/create', preHandleCreatePackage, handleCreatePackage);
 server.get('/api/package/get', handleGetPackage);
 server.post('/api/package/changeState', preHandleChangePackageState, handleChangePackageState);
 
+//console.log(JSON.stringify([1, 2]));
 //server.post('/api/package/update',p)
 
 //server

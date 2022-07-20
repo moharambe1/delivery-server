@@ -70,16 +70,19 @@ export class DB_Postgres {
   }
   async createPackageAnoun(pack: Packages) {
     try {
-      await this._m_pg.query(
+      const res = await this._m_pg.query(
         `INSERT INTO PACKAGES
          (
           idCreater ,idAnoun , idDelivery , PackageMoney, 
           delivringMoney, statePackage, stateMoney, StateMoneyDelivering, 
           phoneNumber, fullName, wilaya, city, addrass
           ) 
-         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
+         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+         RETURNING id
+         `,
         pack.toArray()
       );
+      return res.rows;
     } catch (err) {
       console.log(err);
       throw new ErrorPackage('errer in adding package');
@@ -131,11 +134,46 @@ export class DB_Postgres {
     }
   }
 
+  async GetAnounClientIdName(phone: string): Promise<{ state: boolean; id?: number; name?: string }> {
+    try {
+      const result = await this._m_pg.query(
+        `
+        SELECT id ,name_ FROM ANOUNCLIENTS WHERE
+         phone=$1 `,
+        [phone]
+      );
+      if (result.rowCount == 0) return { state: false };
+
+      return { state: true, id: result.rows[0].id, name: result.rows[0].name_ };
+    } catch (err) {
+      console.log(err);
+      return { state: false };
+    }
+  }
+  async GetAnounClientPhoneName(id: number): Promise<{ state: boolean; phone?: number; name?: string }> {
+    try {
+      const result = await this._m_pg.query(
+        `
+        SELECT phone,name_ FROM ANOUNCLIENTS WHERE
+        id=$1 `,
+        [id]
+      );
+      if (result.rowCount == 0) return { state: false };
+
+      return { state: true, phone: result.rows[0].phone, name: result.rows[0].name_ };
+    } catch (err) {
+      console.log(err);
+      return { state: false };
+    }
+  }
   async GetAllPackagesWithState(state: StatePackageEnum) {
     try {
       let result: QueryResult<unknown>;
-      if (state === StatePackageEnum.ALL) result = await this._m_pg.query(`SELECT * FROM PACKAGES `);
-      else result = await this._m_pg.query(`SELECT * FROM PACKAGES WHERE statepackage=$1`, [state]);
+      if (state === StatePackageEnum.ALL)
+        result = await this._m_pg.query(`SELECT * FROM PACKAGES WHERE statepackage != $1  ORDER BY id DESC`, [
+          StatePackageEnum.DONE
+        ]);
+      else result = await this._m_pg.query(`SELECT * FROM PACKAGES WHERE statepackage=$1  ORDER BY id DESC`, [state]);
 
       return result.rows;
     } catch (err) {
@@ -143,13 +181,56 @@ export class DB_Postgres {
       throw new ErrorPackage('error has happen');
     }
   }
+  async GetAllPackagesUserWithState(id: number, state: StatePackageEnum) {
+    try {
+      let result: QueryResult<unknown>;
+      if (state === StatePackageEnum.ALL)
+        result = await this._m_pg.query(
+          `SELECT * FROM PACKAGES WHERE idanoun=$1 AND  statepackage != $2 ORDER BY id DESC`,
+          [id, StatePackageEnum.DONE]
+        );
+      else
+        result = await this._m_pg.query(
+          `SELECT * FROM PACKAGES WHERE idanoun=$1 AND statepackage=$2 ORDER BY id DESC`,
+          [id, state]
+        );
 
+      return result.rows;
+    } catch (err) {
+      console.log(err);
+      throw new ErrorPackage('error has happen');
+    }
+  }
   async ChangeStatePackage(id: number, state: StatePackageEnum, role: RoleEnum) {
     try {
-      const res = await this._m_pg.query('SELECT update_state_package($1,$2,$3);', [id, state, role]);
-      return res.rows;
+      await this._m_pg.query('SELECT update_state_package($1,$2,$3);', [id, state, role]);
+      return true;
     } catch (e) {
+      console.log(e);
       throw new MassageError('error has happen');
+    }
+  }
+
+  async GetPackageWithId(id: number) {
+    try {
+      const res = await this._m_pg.query('SELECT * FROM PACKAGES WHERE id= $1', [id]);
+
+      if (res.rowCount == 0) throw new MassageError('package with id not found');
+      return res.rows[0];
+    } catch (e) {
+      if (e instanceof MassageError) throw new MassageError(e.message);
+      throw new MassageError('error has happen');
+    }
+  }
+  async SetPackagesStateWithId(ids: number[], newState: StatePackageEnum) {
+    try {
+      //const str = JSON.stringify(ids.toString());
+      await this._m_pg.query(`UPDATE Packages SET statepackage = $1 WHERE id = any ($2) `, [newState, ids]);
+
+      return true;
+    } catch (e) {
+      console.log(e);
+      throw new MassageError('error has happened');
     }
   }
 }

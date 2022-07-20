@@ -7,8 +7,10 @@ export enum StatePackageEnum {
   RECEIVED = 'RECEIVED',
   DELIVERING = 'DELIVERING',
   DELEVERED = 'DELEVERED',
+  RETURNING = 'RETURNING',
   RETURN = 'RETURN',
   STORED = 'STORED',
+  PAYED = 'PAYED',
   DONE = 'DONE',
   ALL = 'ALL'
 }
@@ -118,7 +120,6 @@ export class Packages {
     if (!reqPackage.id) throw new ErrorPackage('id argument is missing');
   }
   static valid_Change_Package_State(req: ReqChangeStateArg) {
-    if (!req.id) throw new ErrorPackage('id argument is missing');
     if (!req.newState || !(req.newState in StatePackageEnum)) throw new ErrorPackage('newState argument not valid');
     return true;
   }

@@ -31,17 +31,30 @@ class DB_Manager {
   GetAllPackagesWithState(state: StatePackageEnum) {
     return this.db_pg.GetAllPackagesWithState(state);
   }
-
+  GetAllPackagesUserWithState(id: number, state: StatePackageEnum) {
+    return this.db_pg.GetAllPackagesUserWithState(id, state);
+  }
   GetAnounClinet(anounClinet: AnounClients) {
     return this.db_pg.GetAnounClient(anounClinet);
   }
-
+  GetAnounClinetIdName(phone: string) {
+    return this.db_pg.GetAnounClientIdName(phone);
+  }
+  GetAnounClinetPhoneName(id: number) {
+    return this.db_pg.GetAnounClientPhoneName(id);
+  }
   createAnounClient(anounClinet: AnounClients) {
     return this.db_pg.CreatAnounClient(anounClinet);
   }
 
   ChangeStatePackage(id: number, state: StatePackageEnum, role: RoleEnum) {
     return this.db_pg.ChangeStatePackage(id, state, role);
+  }
+  SetPackagesStateByIds(ids: number[], newState: StatePackageEnum) {
+    return this.db_pg.SetPackagesStateWithId(ids, newState);
+  }
+  GetPackageWithId(id: number) {
+    return this.db_pg.GetPackageWithId(id);
   }
 }
 

@@ -14,10 +14,8 @@ export const preHandleAddPackageManager = {
       try {
         if (!req.body.account) throw new ErrorInCreatingAccount('account argment is missing');
         if (!req.body.package) throw new ErrorInCreatingAccount('pakcage argment is missing');
-        console.log(req.session.id);
         const account = JSON.parse(req.body.account) as ReqAnounClients;
         const packages = JSON.parse(req.body.package) as ReqCreatePackagesArg;
-        console.log(packages);
         if (
           AnounClients.valid_create_anounClient_argument(account) &&
           Packages.valid_create_package_argiments(packages)
@@ -51,8 +49,8 @@ export const handleAddPackageManager = async (
     }
     pack.id = null;
     pack.idClient = result.id;
-    await db_Manager.createPackageAnoun(new Packages(pack));
-    res.send({ message: 'package add successfully' });
+    const results = await db_Manager.createPackageAnoun(new Packages(pack));
+    res.send({ message: 'package add successfully', id: results[0]['id'] });
   } catch (err) {
     if (err instanceof ErrorInCreatingAccount) res.status(400).send({ message: err.message });
     if (err instanceof ErrorPackage) res.status(400).send({ massage: err.message });
