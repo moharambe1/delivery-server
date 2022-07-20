@@ -14,7 +14,7 @@ const RedisStore = connectRedis(fastifySession as any);
 //connect to redis database
 const redisClinet = createClient({
   url: process.env.REDIS_URL || null,
-  legacyMode: process.env.legacy != null || true
+  legacyMode: true
 });
 redisClinet.connect().catch(console.error);
 
