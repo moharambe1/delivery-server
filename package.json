@@ -37,7 +37,7 @@
     "prepublishOnly": "npm test && npm run lint",
     "prebuild": "npm run lint",
     "build:watch": "tsc -w -p tsconfig.json",
-    "build:release": "tsc -p tsconfig.release.json",
+    "build:release": "tsc -p tsconfig.json",
     "migrate": "node-pg-migrate"
   },
   "author": "Ahmed dhia eddine Mohammedi <github.com/moharambe1/>",

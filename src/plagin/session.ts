@@ -13,12 +13,8 @@ const RedisStore = connectRedis(fastifySession as any);
 
 //connect to redis database
 const redisClinet = createClient({
-  socket: {
-    host: process.env.REDIS_HOST,
-    port: Number.parseInt(process.env.REDIS_PORT)
-  },
-  password: process.env.REDIS_PASSWORD,
-  legacyMode: true
+  url: process.env.REDIS_URL || null,
+  legacyMode: process.env.legacy != null || true
 });
 redisClinet.connect().catch(console.error);
 
