@@ -12,7 +12,14 @@ import * as connectRedis from 'connect-redis';
 const RedisStore = connectRedis(fastifySession as any);
 
 //connect to redis database
-const redisClinet = createClient({ legacyMode: true });
+const redisClinet = createClient({
+  socket: {
+    host: process.env.REDIS_HOST,
+    port: Number.parseInt(process.env.REDIS_PORT)
+  },
+  password: process.env.REDIS_PASSWORD,
+  legacyMode: true
+});
 redisClinet.connect().catch(console.error);
 
 async function plugin(fastify: FastifyInstance) {

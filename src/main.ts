@@ -81,9 +81,9 @@ server.post('/api/package/changeState', preHandleChangePackageState, handleChang
 
 //console.log(JSON.stringify([1, 2]));
 //server.post('/api/package/update',p)
-
+const PORT = process.env.PORT || 8000;
 //server
-server.listen(8000, '0.0.0.0', (err, address) => {
+server.listen(PORT, '0.0.0.0', (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
