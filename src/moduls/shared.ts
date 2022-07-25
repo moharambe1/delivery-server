@@ -1,7 +1,38 @@
 export enum WilayaEnum {
-  BISKRA = 'BISKRA'
+  BISKRA = 'BISKRA',
+  BATNA=    'BATNA',
+  OuledDjellal=  'OuledDjellal',
+  AUTHER=  'AUTHER',
 }
 
 export enum CityEnum {
-  BISKRA = 'BISKRA'
+  BISKRA = 'BISKRA',
+  BATNA=    'BATNA',
+  OuledDjellal=  'OuledDjellal',
+  AUTHER=  'AUTHER',
+  Okba=  'Okba',
+  Lhajbe=  'Lhajbe',
+  Bouchagroun=  'Bouchagroun',
+  Lichana=  'Lichana',
+  Tolga=  'Tolga',
+  BordjBenAzzouz=  'BordjBenAzzouz',
+  Foughala=  'Foughala',
+  Ourlala=  'Ourlala',
+  Mlili=  'Mlili',
+  Oumache=  'Oumache',
+  ElGhrous=  'ElGhrous',
+  Lioua=  'Lioua',
+  Doucen=  'Doucen',
+  AinNaga=  'AinNaga',
+  ZeribetElOued=  'ZeribetElOued',
+  ElFeidh=  'ElFeidh',
+  ElHaouch=  'ElHaouch',
+  ElOutaya=  'ElOutaya',
+  Branis=  'Branis',
+  Djemorah=  'Djemorah',
+  ElKantara=  'ElKantara',
+  Arris=  'Arris',
+  Ichemoul=  'Ichemoul',
+  SidiKhaled=  'SidiKhaled',
+
 }

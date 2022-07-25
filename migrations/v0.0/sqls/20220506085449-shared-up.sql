@@ -1,3 +1,3 @@
 /* Replace with your SQL commands */
-CREATE TYPE CityEnumShared AS ENUM ('BISKRA') ;
-CREATE TYPE WilayaEnumShared AS ENUM ('BISKRA') ;
+CREATE TYPE WilayaEnumShared AS ENUM ('BISKRA' ,'BATNA', 'OuledDjellal', 'AUTHER' ) ;
+CREATE TYPE CityEnumShared AS ENUM ('BISKRA', 'BATNA', 'OuledDjellal', 'Okba', 'Lhajbe', 'Bouchagroun', 'Lichana', 'Tolga', 'BordjBenAzzouz', 'Foughala', 'Ourlala', 'Mlili', 'Oumache', 'ElGhrous', 'Lioua', 'Doucen', 'AinNaga', 'ZeribetElOued', 'ElFeidh', 'ElHaouch', 'ElOutaya', 'Branis', 'Djemorah', 'ElKantara', 'Arris', 'Ichemoul', 'SidiKhaled', 'AUTHER') ;
